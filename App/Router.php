@@ -20,19 +20,19 @@ class Router {
 	
   }
 
-  public function dispatch($type, $uri){
+  public function dispatch(Zend_Controller_Request_Http $request){
 
-	$uri = ltrim( $uri, "/" );	
+	$uri = ltrim( $request->getRequestUri(), "/" );	
 	$uri_parts = explode('/',$uri);
 	$api_key = array_shift($uri_parts);	
-	$uri = implode('/', $uri_parts );
+	$request->setRequestUri( implode('/', $uri_parts  ) );
 	
 	if( $_definition = $this->_getAPIDefinition( $api_key ) ){
 	  extract( $_definition );
 	  if( isset($controller_class) ){
-		$_controller = new $controller_class;
-		if( $_controller->match( $type, $uri ) ){
-		  return $_controller->dispatch( $type, $uri );
+		$_controller = new $controller_class( $request );
+		if( $_controller->match( $request ) ){
+		  return $_controller->dispatch( $request );
 		} else {
 		  throw new Exception('Service: "' . $uri . '" does not match any defined in: "' . get_class( $_controller ) . '"');
 		}

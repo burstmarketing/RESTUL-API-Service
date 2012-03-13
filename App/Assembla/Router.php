@@ -14,12 +14,12 @@ class Assembla_Router {
   }
 
 
-  public function match( $type, $uri ){
+  public function match( Zend_Controller_Request_Http $request ){
 	foreach( $this->_getRoutes() AS $_type => $_routes ){	  
-	  if( $_type == $type ){		
+	  if( $_type == $request->getMethod() ){		
 		foreach( $_routes AS $_uri => $_service ){
 		  $regex = $this->_uriAsRegex( $_uri );
-		  if( preg_match( $regex, $uri) ){
+		  if( preg_match( $regex, $request->getRequestUri()) ){
 			return true;
 		  }
 		}	
@@ -29,19 +29,19 @@ class Assembla_Router {
   }
 
 
-  public function dispatch($type, $uri){
+  public function dispatch(Zend_Controller_Request_Http $request){
 
 	foreach( $this->_getRoutes() AS $_type => $_routes ){
 
-	  if( $_type == $type ){
+	  if( $_type == $request->getMethod() ){
 		foreach( $_routes AS $_uri => $_service ){
 		  $regex = $this->_uriAsRegex( $_uri );
-		  if( preg_match( $regex, $uri) ){
+		  if( preg_match( $regex, $request->getRequestUri()) ){
 			if( isset( $_service['controller'] ) && isset( $_service['action'] ) ){
 			  extract($_service);
 			  
-			  $_controller = new $controller;
-			  $_args = $this->_parseUriArgs( $_uri, $uri  );
+			  $_controller = new $controller($request);
+			  $_args = $this->_parseUriArgs( $_uri, $request->getRequestUri()  );
 			  return $_controller->$action( $_args );
 			  			  
 			} else {
