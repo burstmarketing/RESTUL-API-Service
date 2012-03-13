@@ -17,7 +17,7 @@ class Assembla_Controller_Default {
   public function __construct(){
 	$this->_api = new Assembla_API;
 	$this->_api->loadConfig( 'Assembla/etc/config.json' );
-	$this->_api->setUserName('DEFAULT_USERNAME')->setPassword('DEFAULT_PASSWORD');
+	$this->_api->setUserName(DEFAULT_USERNAME)->setPassword(DEFAULT_PASSWORD);
   }
 
   public function __call($method, $args){
