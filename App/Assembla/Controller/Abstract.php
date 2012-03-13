@@ -3,6 +3,13 @@
 class Assembla_Controller_Abstract {
 
   public function __construct(){
+
+	if (!isset($_SERVER['PHP_AUTH_USER'])) {
+	  header('WWW-Authenticate: Basic realm="My Realm"');
+	  header('HTTP/1.0 401 Unauthorized');
+	  exit;
+	} 
+	
 	$this->_api = new Assembla_API;
 	$this->_api->loadConfig( 'Assembla/etc/config.json' );
 	if( isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']) ){

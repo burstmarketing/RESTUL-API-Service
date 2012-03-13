@@ -41,7 +41,8 @@ class Assembla_Router {
 			  extract($_service);
 			  
 			  $_controller = new $controller;
-			  return $_controller->$action( $this->_parseUriArgs( $_uri, $uri ) );
+			  $_args = $this->_parseUriArgs( $_uri, $uri  );
+			  return $_controller->$action( $_args );
 			  			  
 			} else {
 			  throw new Exception( 'Service associated with route: "' . $_uri . '" must have "controller" and "action" set');
@@ -57,24 +58,27 @@ class Assembla_Router {
 
   
   protected function _parseUriArgs( $route, $request ){
+	
 	$_array_keys = explode('/', $route );
 	$_array_values = explode('/', $request);
 
 	//strip variblaes ( ${} ) from array_keys
 	$_array_keys = array_map( function( $key ){ return trim( $key,'${}'); }, $_array_keys );
-	$_return_array = array_combine($_array_keys, $_array_values);
+	$_return_array = array();
 
-	preg_match_all('/\$\{([^\$}]+)\}/', $route, $_preg_keys );
+	foreach( array_combine($_array_keys, $_array_values) AS $_key => $_value ){
+	  if( $_key !== $_value ){
+		$_return_array[$_key] = $_value;
+	  }
+	}
    
-	$_return_array = array_intersect_key( $_return_array, array_flip($_preg_keys[1]) );
 	return $_return_array;
-
   }
 
 
   protected function _uriAsRegex($uri){	
-	  $uri = preg_replace('/\$\{([^\$}]+)\}/', '.*', $uri );
 	  $uri = preg_replace('/\//', '\/', $uri );
+	  $uri = preg_replace('/\$\{([^\$}]+)\}/', '([^\/])+', $uri );
 	  return "/^" . $uri . "$/";
   }
 
