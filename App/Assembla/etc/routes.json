@@ -47,10 +47,7 @@
 			"user/best_profile/${user_id}" : { "controller" : "Assembla_Controller_Default", 
 											   "action" :  "best_profile"},
 			"spaces/${space_id}/users" :  { "controller" : "Assembla_Controller_Default", 
-											"action" : "team_members_of_space"},
-			
-			
-			
+											"action" : "team_members_of_space"},									
 			"user/search?field:login&value:${value}" :  { "controller" : "Assembla_Controller_Default", 
 														  "action" : "user_search_by_login"},
 			"user/search?field:email&value:${value}" :  { "controller" : "Assembla_Controller_Default", 
@@ -66,7 +63,12 @@
 			"user/time_entries/${task_id}/time_logs" :  { "controller" : "Assembla_Controller_Default", 
 														  "action" : "list_of_time_logs"},
 			"user/time_entires/${task_id}/time_logs/${time_log_id}" :  { "controller" : "Assembla_Controller_Default", 
-																	 "action" : "show_time_log"}			
+																	 "action" : "show_time_log"},
+
+
+			"test" :  { "controller" : "Assembla_Controller_Test", 
+					    "action" : "testBed"}			
+
 		},
 		"PUT" : { 
 			"spaces/${space_id}/milestones/${milestone_id}" :  { "controller" : "Assembla_Controller_Default", 
