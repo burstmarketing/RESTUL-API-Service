@@ -5,9 +5,9 @@ class Assembla_Controller_Abstract {
   public function __construct(){
 
 	if (!isset($_SERVER['PHP_AUTH_USER'])) {
-	  $response = new Zend_Controller_Http_Response();
+	  $response = new Zend_Controller_Response_Http();
 	  $response->setHeader('WWW_Authenticate', "Basic realm='Assembla JSON API'" )
-		->setHttpResponseCode('401 Unauthorized')
+		->setHttpResponseCode(401)
 		->sendResponse();
 	  exit;
 	} 

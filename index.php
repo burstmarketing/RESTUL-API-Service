@@ -9,7 +9,7 @@ include_once('lib/Autoload.php');
 
 $request = new Zend_Controller_Request_Http();
 $response = new Zend_Controller_Response_Http();
-
+                
 $router = new Router();
 
 $response->setBody( $router->dispatch( $request ) );

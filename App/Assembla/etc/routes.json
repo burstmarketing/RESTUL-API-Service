@@ -1,6 +1,9 @@
 {
 	"routes" : {
 		"GET" : { 		
+		    "getconfig" : { "controller" : "Assembla_Controller_Custom",
+							"action" : "getConfig" },
+
 			"spaces/${space_id}/milestones/" : { "controller" : "Assembla_Controller_Default", 
 												 "action" : "list_of_milestones" },
 			"spaces/${space_id}/milestones/${milestone_id}" : { "controller" : "Assembla_Controller_Default", 
