@@ -70,7 +70,9 @@
 
 
 			"test" :  { "controller" : "Assembla_Controller_Test", 
-					    "action" : "testBed"}			
+					    "action" : "testBed"},
+			"activetickets" : { "controller" : "Assembla_Controller_Custom",
+								"action" : "getActiveTickets" }
 
 		},
 		"PUT" : { 
