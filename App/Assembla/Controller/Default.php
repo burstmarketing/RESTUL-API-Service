@@ -14,18 +14,18 @@ class Assembla_Controller_Default extends Assembla_Controller_Abstract {
 	return $this->_uc_words($name, '');
   }
 
-
   public function __call($method, $args){
-	$method = "load" . $this->_camelize($method);
-	if( isset( $args[0] ) && is_array($args[0] ) ){
-	  return $this->_api->$method( $args[0] )->toJSON();
+	if( ($service = $this->_api->getService($method) ) !== null ){
+	  $method = "load" . $this->_camelize($method);
+	  if( isset( $args[0] ) && is_array($args[0] ) ){
+		return $this->_api->$method( $args[0] )->toJSON();
+	  } else {
+		return $this->_api->$method()->toJSON();
+	  }	  
 	} else {
-	  return $this->_api->$method()->toJSON();
+	  throw new Exception( 'Service: ' . $method . ' is not defined in the api config!' ); 
 	}
   }
-
-
+  
   }
-
-
 ?>

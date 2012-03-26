@@ -1,0 +1,24 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery("#foo").click(function(){
+			jQuery.ajax({
+				cache: true,
+				async: true,
+				username: <?php echo $this->getUsername(); ?>
+				password: <?php echo $this->getPassword(); ?>
+				dataType: 'json',
+				type: 'PUT',
+				url: 'spaces/${space_id}/tickets/${ticket_number}',
+				success: callback
+			});
+		});
+	});
+</script>
+</head>
+<body>
+<div id="foo">FOO</div>
+</body>
+</html>

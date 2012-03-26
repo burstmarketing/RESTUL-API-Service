@@ -82,7 +82,7 @@
 									  "action" : "update_space_by_id"},
 			"spaces/${space_wiki_name}" :  { "controller" : "Assembla_Controller_Default", 
 											 "action" : "update_space_by_wiki"},
-			"spaces/${space_id}/tickets/${ticket_number}" : { "controller" : "Assembla_Controller_Default", 
+			"spaces/${space_id}/tickets/${ticket_number}" : { "controller" : "Assembla_Controller_Custom", 
 															  "action" :  "update_ticket"},
 			"user/time_entires/${task_id}" :  { "controller" : "Assembla_Controller_Default", 
 												"action" : "update_task"},
