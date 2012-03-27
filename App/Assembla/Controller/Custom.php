@@ -19,7 +19,7 @@ class Assembla_Controller_Custom extends Assembla_Controller_Abstract {
   }
   
   public function update_ticket() {
-	die();
+	
   }
 
   }

@@ -6,6 +6,10 @@ class  Zend_Controller_Request_Rest extends Zend_Controller_Request_Http
   protected $_PUT = array();
   
 
+  public function getPut(){
+	return $this->_PUT;
+  }
+
   public function __construct(){
 	if( isset( $_SERVER['REQUEST_METHOD'] ) ){
 	  switch( $_SERVER['REQUEST_METHOD'] ){
