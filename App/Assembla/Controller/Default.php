@@ -28,6 +28,7 @@ class Assembla_Controller_Default extends Assembla_Controller_Abstract {
 	  if( isset($service['classname'] ) ){
 		$object = new $service['classname']();
 		$object->setData( $this->getRequest()->getParams() );
+		$xml = $object->toXml();
 		return '';
 	  }
 	}
