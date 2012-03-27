@@ -1,5 +1,7 @@
 <?php
 class Assembla_Controller_Custom extends Assembla_Controller_Abstract {
+  protected $_put_vars;
+
 
   public function getConfig(){
 	return file_get_contents( RESTFUL_API_LOADER::getBaseDir() . "/Assembla/etc/config.json");

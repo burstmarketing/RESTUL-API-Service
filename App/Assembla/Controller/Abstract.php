@@ -2,6 +2,12 @@
 
 class Assembla_Controller_Abstract {
 
+  protected $_request;
+
+  public function getRequest(){
+	return $this->_request;
+  }
+
   public function __construct(){
 
 	if (!isset($_SERVER['PHP_AUTH_USER'])) {
@@ -11,7 +17,12 @@ class Assembla_Controller_Abstract {
 		->sendResponse();
 	  exit;
 	} 
-	
+
+	$a = func_get_args();
+	if( count($a) && $a[0] instanceof Zend_Controller_Request_Abstract ){
+	  $this->_request = $a[0];
+	}
+
 	$this->_api = new Assembla_API;
 	$this->_api->loadConfig( 'Assembla/etc/config.json' );
 	if( isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']) ){

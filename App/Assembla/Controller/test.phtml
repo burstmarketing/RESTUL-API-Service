@@ -7,18 +7,50 @@
 			jQuery.ajax({
 				cache: true,
 				async: true,
-				username: <?php echo $this->getUsername(); ?>
-				password: <?php echo $this->getPassword(); ?>
+/*				username: "<?php echo $this->_api->getUserName(); ?>",
+				password: "<?php echo $this->_api->getPassword(); ?>", */
 				dataType: 'json',
-				type: 'PUT',
-				url: 'spaces/${space_id}/tickets/${ticket_number}',
-				success: callback
+				type: 'GET',
+				url: 'spaces/dGGiO6D1ir4B_BacwqjQWU/tickets/1',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", "Basic " + window.btoa("<?php echo $this->_api->getUserName(); ?>" + ":" + "<?php echo $this->_api->getPassword(); ?>") );
+				},
+				success: function(data) {
+					
+					console.log(data);
+
+					var estimate = parseFloat( data.estimate ) + 0.5;
+					data.estimate = estimate.toString();
+
+					setTimeout( function(){
+						
+						console.log(data);
+
+						jQuery.ajax({
+							cache: true,
+							async: true,
+/*							username: "<?php echo $this->_api->getUserName(); ?>",
+							password: "<?php echo $this->_api->getPassword(); ?>", */
+							dataType: 'json',
+							type: 'PUT',
+							data : data,
+							url: 'spaces/dGGiO6D1ir4B_BacwqjQWU/tickets/1',
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader("Authorization", "Basic " + window.btoa("<?php echo $this->_api->getUserName(); ?>" + ":" + "<?php echo $this->_api->getPassword(); ?>") );
+							},
+							success: function(resp) {
+								console.log(resp);
+							}
+						});
+					}, 3000);
+
+				}
 			});
 		});
 	});
 </script>
 </head>
 <body>
-<div id="foo">FOO</div>
+<div id="foo" style="cursor:pointer;">FOO</div>
 </body>
 </html>
