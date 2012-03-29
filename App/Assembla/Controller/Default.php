@@ -32,9 +32,9 @@ class Assembla_Controller_Default extends Assembla_Controller_Abstract {
 		
 		$method = "load" . $this->_camelize($method);
 		if( isset( $args[0] ) && is_array($args[0] ) ){
-		  return $this->_api->$method( $args[0], $xml);
+		  return $this->_api->$method( $args[0], $xml)->toJSON();
 		} else {
-		  return $this->_api->$method( array(), $xml);
+		  return $this->_api->$method( array(), $xml)->toJSON();
 		}	
 		
 		return '';
