@@ -57,7 +57,7 @@
 														  "action" : "user_search_by_email"},
 			"user/search?field:external_id&value:${value}" :  { "controller" : "Assembla_Controller_Default", 
 																"action" : "user_search_by_external_id"},
-			"user/time_entries" :  { "controller" : "Assembla_Controller_Default", 
+			"user/time_entries" :  { "controller" : "Assembla_Controller_Custom", 
 									 "action" : "list_of_tasks"},
 			
 			"user/time_entires/${task_id}" :  { "controller" : "Assembla_Controller_Default", 

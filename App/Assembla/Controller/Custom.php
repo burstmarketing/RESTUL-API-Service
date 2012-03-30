@@ -17,6 +17,11 @@ class Assembla_Controller_Custom extends Assembla_Controller_Abstract {
 	return $_spaces->toJSON();
 	
   }
+
+  public function list_of_tasks(){
+	$collection = $this->_api->loadListOfTasks();
+	return $collection->reverse()->limit(30)->toJSON();
+  }
   
   public function update_ticket() {
 	
