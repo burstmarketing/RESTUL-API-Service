@@ -10,8 +10,8 @@ class Assembla_Controller_Custom extends Assembla_Controller_Abstract {
   public function getActiveTickets(){
 	$_spaces = $this->_api->loadMySpacesList();
 	foreach( $_spaces AS $_space ){
-	  $_space->setActiveTickets( $this->_api->loadTicketReport( array( "report_id" => 8, 
-																	   "space_id" => $_space->getId())) );
+	  $_space->setTickets( $this->_api->loadTicketReport( array( "report_id" => 8, 
+																 "space_id" => $_space->getId())) );
 	}
 
 	return $_spaces->toJSON();
