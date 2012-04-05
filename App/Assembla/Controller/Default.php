@@ -26,8 +26,10 @@ class Assembla_Controller_Default extends Assembla_Controller_Abstract {
   protected function _processPut( $service, $method, $args ){
 	if( count($this->getRequest()->getPut()) ){
 	  if( isset($service['classname'] ) ){
+
 		$object = new $service['classname']();
-		$object->setData( $this->getRequest()->getParams() );
+		$object->setData( Core_API_XML_Helper::underscoreToHyphenKeys($this->getRequest()->getParams()) );
+
 		$xml = $object->toXml();
 		
 		$method = "load" . $this->_camelize($method);

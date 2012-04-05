@@ -17,12 +17,10 @@
 					
 					console.log(data);
 
-					var estimate = parseFloat( data.estimate ) + 0.5;
-					data.estimate = estimate.toString();
-
+	
 					setTimeout( function(){
-						
-						console.log(data);
+	                    console.log("data");						
+						data.custom_fields[0].value = "2012/03/23";
 
 						jQuery.ajax({
 							cache: true,
@@ -35,6 +33,7 @@
 								xhr.setRequestHeader("Authorization", "Basic " + window.btoa("<?php echo $this->_api->getUserName(); ?>" + ":" + "<?php echo $this->_api->getPassword(); ?>") );
 							},
 							success: function(resp) {
+	                            console.log("response");
 								console.log(resp);
 							}
 						});
