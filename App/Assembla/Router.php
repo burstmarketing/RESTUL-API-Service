@@ -4,13 +4,11 @@ class Assembla_Router {
   protected $_routes;
   
   public function __construct(){
-	$this->_routes = new Core_Config_JSON;
-	$this->_routes->load( SERVICE_API_LOADER::getBaseDir() . "Assembla/etc/routes.json" );
-
+	$this->_routes = new Zend_Config_Json( SERVICE_API_LOADER::getBaseDir() . "Assembla/etc/routes.json" );
   }
   
   protected function _getRoutes(){
-	return $this->_routes->getRoutes();
+	return $this->_routes->routes;
   }
 
 
@@ -37,12 +35,11 @@ class Assembla_Router {
 		foreach( $_routes AS $_uri => $_service ){
 		  $regex = $this->_uriAsRegex( $_uri );
 		  if( preg_match( $regex, $request->getRequestUri()) ){
-			if( isset( $_service['controller'] ) && isset( $_service['action'] ) ){
-			  extract($_service);
-			  
-			  $_controller = new $controller($request);
+			if( isset( $_service->controller ) && isset( $_service->action ) ){
+
+			  $_controller = new $_service->controller($request);
 			  $_args = $this->_parseUriArgs( $_uri, $request->getRequestUri()  );
-			  return $_controller->$action( $_args );
+			  return $_controller->{$_service->action}( $_args );
 			  			  
 			} else {
 			  throw new Exception( 'Service associated with route: "' . $_uri . '" must have "controller" and "action" set');
